@@ -4,55 +4,40 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public Rigidbody PlayerRigidBody;
-	float rotationSpeed = 3;
-	Vector3 actualRotation = Vector3.zero;
+    public Transform shotSpawn;
+    public GameObject shot;
 
+    float rotationSpeed = 3;
+    float fireRate = 0.85f;
+    float nextFire = 0.05f;
 
-	//public float speed;
-	//public float tilt;
-	//public Boundary boundary;
+    int forceSpeed = 10;
+
+    Vector3 actualRotation = Vector3.zero;
+    Vector3 actu2 = Vector3.zero;
+
+    GameObject clone;
 	
-	public GameObject shot;
-	//public Transform shotSpawn;
-	float fireRate = 0.85f;
-	
-	private float nextFire=0.05f;
-	public Transform shotSpawn;
-	GameObject clone;
-	Vector3 actu2;
-
-	int forceSpeed=10;
-
-
 	// Use this for initialization
 	void Start () {
 	}
-	void FixedUpdate ()
-	{
-
+	void FixedUpdate (){
 	}
 	// Update is called once per frame
 	void Update () {
-
 		actualRotation = transform.localEulerAngles;
-
-		if (Input.GetButton("Fire1") && Time.time > nextFire)
-		{
+		if (Input.GetButton("Fire1") && Time.time > nextFire){
 			nextFire = Time.time + fireRate;
 			clone = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
 			actu2 = actualRotation;
 			actu2.z += 90;
 			clone.transform.localEulerAngles = actu2;
-
 			Rigidbody2D bulletRigidbody = clone.GetComponent<Rigidbody2D>();
 			bulletRigidbody.AddForce(clone.transform.right * 750);
-
 		}
 		if (Input.GetKey ("w")) {
 			PlayerRigidBody.AddForce(new Vector3 (0,0,forceSpeed));
-
 			if(transform.localEulerAngles.y== 180 ){	
-				
 			}
 			if(transform.localEulerAngles.z<0){
 				actualRotation.y = actualRotation.y + rotationSpeed;
@@ -67,12 +52,9 @@ public class PlayerController : MonoBehaviour {
 				transform.localEulerAngles = actualRotation;
 			}
 		}
-
 		if(Input.GetKey("d")){
 			PlayerRigidBody.AddForce(new Vector3 (forceSpeed,0,0));
-
 			if(transform.localEulerAngles.y== 270 ){	
-				
 			}
 			if(transform.localEulerAngles.z<0){
 				actualRotation.y = actualRotation.y - rotationSpeed;
@@ -95,14 +77,9 @@ public class PlayerController : MonoBehaviour {
 				transform.localEulerAngles = actualRotation;
 			}
 		}
-	
 		if(Input.GetKey("s")){
 			PlayerRigidBody.AddForce(new Vector3 (0,0,-forceSpeed));
-
-		
-
 			if(transform.localEulerAngles.y== 0 ){	
-				
 			}
 			if(transform.localEulerAngles.z<0){
 				actualRotation.y = actualRotation.y - rotationSpeed;
@@ -122,12 +99,9 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
-
 		if(Input.GetKey("a")){
 			PlayerRigidBody.AddForce(new Vector3 (-forceSpeed,0,0));
-
 			if(transform.localEulerAngles.y== 90 ){	
-			
 			}
 			if(transform.localEulerAngles.z<0){
 				actualRotation.y = actualRotation.y + rotationSpeed;
