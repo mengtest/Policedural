@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public Rigidbody2D PlayerRigidBody;
+	public Rigidbody PlayerRigidBody;
 	float rotationSpeed = 3;
 	Vector3 actualRotation = Vector3.zero;
 
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	GameObject clone;
 	Vector3 actu2;
 
+	int forceSpeed=10;
 
 
 	// Use this for initialization
@@ -48,102 +49,104 @@ public class PlayerController : MonoBehaviour {
 
 		}
 		if (Input.GetKey ("w")) {
-			PlayerRigidBody.AddForce(new Vector2 (0,5));
+			PlayerRigidBody.AddForce(new Vector3 (0,0,forceSpeed));
 
-			if(transform.localEulerAngles.z == 0 ){	
-				 
+			if(transform.localEulerAngles.y== 180 ){	
+				
 			}
 			if(transform.localEulerAngles.z<0){
-				actualRotation.z = actualRotation.z - rotationSpeed;
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(  transform.localEulerAngles.z > 0 && transform.localEulerAngles.z <= 180 ){	// 1 cuadrante
-				actualRotation.z = actualRotation.z - rotationSpeed;
+			if(  transform.localEulerAngles.y>= 0 && transform.localEulerAngles.y< 180 ){	// 1 cuadrante
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(transform.localEulerAngles.z > 358 ){ // 2 y 3 cuadrante
-				actualRotation.z = 0;
+			if(transform.localEulerAngles.y> 180 ){ // 2 y 3 cuadrante
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
-			}else{
-				if( transform.localEulerAngles.z > 180 ){
-					actualRotation.z = actualRotation.z + rotationSpeed;
-					transform.localEulerAngles = actualRotation;	
-				}
 			}
 		}
 
 		if(Input.GetKey("d")){
-			PlayerRigidBody.AddForce(new Vector2 (5,0));
+			PlayerRigidBody.AddForce(new Vector3 (forceSpeed,0,0));
 
-			if(transform.localEulerAngles.z == 270 ){	
+			if(transform.localEulerAngles.y== 270 ){	
 				
 			}
 			if(transform.localEulerAngles.z<0){
-				actualRotation.z = actualRotation.z - rotationSpeed;
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(  transform.localEulerAngles.z > 270 && transform.localEulerAngles.z < 360 ){	// 1 cuadrante
-				actualRotation.z = actualRotation.z - rotationSpeed;
+			if(  transform.localEulerAngles.y> 270 && transform.localEulerAngles.y< 360 ){	// 1 cuadrante
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(transform.localEulerAngles.z < 270 && transform.localEulerAngles.z >= 90){ // 2 y 3 cuadrante
-				actualRotation.z = actualRotation.z + rotationSpeed;
+			if(transform.localEulerAngles.y< 270 && transform.localEulerAngles.y>= 90){ // 2 y 3 cuadrante
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if( transform.localEulerAngles.z < 90 && transform.localEulerAngles.z > 0.5 ){
-				actualRotation.z = actualRotation.z - rotationSpeed;
+			if( transform.localEulerAngles.y< 90 && transform.localEulerAngles.y> 0.5 ){
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if( transform.localEulerAngles.z < 0.5 ){
-				actualRotation.z = 358;
+			if( transform.localEulerAngles.y< 0.5 ){
+				actualRotation.y = 358;
 				transform.localEulerAngles = actualRotation;
 			}
 		}
 	
 		if(Input.GetKey("s")){
-			PlayerRigidBody.AddForce(new Vector2 (0,-5));
+			PlayerRigidBody.AddForce(new Vector3 (0,0,-forceSpeed));
 
-			if(transform.localEulerAngles.z == 180 ){	
+		
+
+			if(transform.localEulerAngles.y== 0 ){	
 				
 			}
 			if(transform.localEulerAngles.z<0){
-				actualRotation.z = actualRotation.z + rotationSpeed;
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(  transform.localEulerAngles.z >= 0 && transform.localEulerAngles.z < 180 ){	// 1 cuadrante
-				actualRotation.z = actualRotation.z + rotationSpeed;
+			if(  transform.localEulerAngles.y> 0 && transform.localEulerAngles.y<= 180 ){	// 1 cuadrante
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(transform.localEulerAngles.z > 180 ){ // 2 y 3 cuadrante
-				actualRotation.z = actualRotation.z - rotationSpeed;
+			if(transform.localEulerAngles.y> 358 ){ // 2 y 3 cuadrante
+				actualRotation.y = 0;
 				transform.localEulerAngles = actualRotation;
+			}else{
+				if( transform.localEulerAngles.y> 180 ){
+					actualRotation.y = actualRotation.y + rotationSpeed;
+					transform.localEulerAngles = actualRotation;	
+				}
 			}
 		}
 
 		if(Input.GetKey("a")){
-			PlayerRigidBody.AddForce(new Vector2 (-5,0));
+			PlayerRigidBody.AddForce(new Vector3 (-forceSpeed,0,0));
 
-			if(transform.localEulerAngles.z == 90 ){	
+			if(transform.localEulerAngles.y== 90 ){	
 			
 			}
 			if(transform.localEulerAngles.z<0){
-				actualRotation.z = actualRotation.z + rotationSpeed;
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(  transform.localEulerAngles.z > 0 && transform.localEulerAngles.z < 90 ){	// 1 cuadrante
-				actualRotation.z = actualRotation.z + rotationSpeed;
+			if(  transform.localEulerAngles.y> 0 && transform.localEulerAngles.y< 90 ){	// 1 cuadrante
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if(transform.localEulerAngles.z <= 270 && transform.localEulerAngles.z > 90){ // 2 y 3 cuadrante
-				actualRotation.z = actualRotation.z - rotationSpeed;
+			if(transform.localEulerAngles.y<= 270 && transform.localEulerAngles.y> 90){ // 2 y 3 cuadrante
+				actualRotation.y = actualRotation.y - rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if( transform.localEulerAngles.z == 0 ){
-				actualRotation.z = actualRotation.z + rotationSpeed;
+			if( transform.localEulerAngles.y== 0 ){
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
-			if( transform.localEulerAngles.z > 270 ){
-				actualRotation.z = actualRotation.z + rotationSpeed;
+			if( transform.localEulerAngles.y> 270 ){
+				actualRotation.y = actualRotation.y + rotationSpeed;
 				transform.localEulerAngles = actualRotation;
 			}
 		}

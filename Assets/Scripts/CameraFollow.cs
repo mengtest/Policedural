@@ -13,9 +13,8 @@ public class CameraFollow : MonoBehaviour {
 	GameObject target;
 	Vector3 offset = new Vector3 (0, 0, 0);
 	Vector3 targetPos;
-	public Camera cam;
 	bool firsTime = true;
-
+	int alturaCamara = 20;
 	// Use this for initialization
 	void Start () {
 	}
@@ -33,13 +32,13 @@ public class CameraFollow : MonoBehaviour {
 		{
 			if(firsTime){
 				Vector3 firstTime = target.transform.position;
-				firstTime.z = -30;
+				firstTime.y = alturaCamara;
 				transform.position=firstTime;
 				firsTime=false;
 			}
-			Vector3 posNoZ = transform.position;
-			posNoZ.z = target.transform.position.z;
-			Vector3 targetDirection = (target.transform.position - posNoZ);
+			Vector3 posNoY = transform.position;
+			posNoY.y = target.transform.position.y;
+			Vector3 targetDirection = (target.transform.position - posNoY);
 			interpVelocity = targetDirection.magnitude * 6f;
 			targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime); 
 

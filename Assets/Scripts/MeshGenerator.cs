@@ -60,9 +60,6 @@ public class MeshGenerator : MonoBehaviour {
 	
 	void CreateWallMesh() {
 		
-		MeshCollider currentCollider = GetComponent<MeshCollider> ();
-		Destroy(currentCollider);
-		
 		CalculateMeshOutlines ();
 		
 		List<Vector3> wallVertices = new List<Vector3> ();
@@ -91,7 +88,7 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.triangles = wallTriangles.ToArray ();
 		walls.mesh = wallMesh;
 		
-		MeshCollider wallCollider = gameObject.AddComponent<MeshCollider> ();
+		MeshCollider wallCollider = walls.gameObject.AddComponent<MeshCollider> ();
 		wallCollider.sharedMesh = wallMesh;
 	}
 	
@@ -240,25 +237,6 @@ public class MeshGenerator : MonoBehaviour {
 					outlines[outlines.Count-1].Add(vertexIndex);
 				}
 			}
-		}
-		
-		SimplifyMeshOutlines ();
-	}
-	
-	void SimplifyMeshOutlines() {
-		for (int outlineIndex = 0; outlineIndex < outlines.Count; outlineIndex ++) {
-			List<int> simplifiedOutline = new List<int>();
-			Vector3 dirOld = Vector3.zero;
-			for (int i = 0; i < outlines[outlineIndex].Count-1; i ++) {
-				Vector3 p1 = vertices[outlines[outlineIndex][i]];
-				Vector3 p2 = vertices[outlines[outlineIndex][i+1]];
-				Vector3 dir = p1-p2;
-				if (dir != dirOld) {
-					dirOld = dir;
-					simplifiedOutline.Add(outlines[outlineIndex][i]);
-				}
-			}
-			outlines[outlineIndex] = simplifiedOutline;
 		}
 	}
 	
