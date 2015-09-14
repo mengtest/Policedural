@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
-	public Rigidbody PlayerRigidBody;
+    public Rigidbody PlayerRigidBody;
     public Transform shotSpawn;
     public GameObject shot;
 
@@ -17,48 +18,60 @@ public class PlayerController : MonoBehaviour {
     Vector3 actu2 = Vector3.zero;
 
     GameObject clone;
-	
-	// Use this for initialization
-	void Start () {
-	}
-	void FixedUpdate (){
-	}
-	// Update is called once per frame
-	void Update () {
-		actualRotation = transform.localEulerAngles;
-		if (Input.GetButton("Fire1") && Time.time > nextFire){
-			nextFire = Time.time + fireRate;
-			clone = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
-			actu2 = actualRotation;
-			actu2.z += 90;
-			clone.transform.localEulerAngles = actu2;
-			Rigidbody2D bulletRigidbody = clone.GetComponent<Rigidbody2D>();
-			bulletRigidbody.AddForce(clone.transform.right * 750);
-		}
-		if (Input.GetKey ("w")) {
-			PlayerRigidBody.AddForce(new Vector3 (0,0,forceSpeed));
+
+    // Use this for initialization
+    void Start()
+    {
+    }
+    void FixedUpdate()
+    {
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        actualRotation = transform.localEulerAngles;
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            clone = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
+            actu2 = actualRotation;
+            actu2.z += 90;
+            clone.transform.localEulerAngles = actu2;
+            Rigidbody2D bulletRigidbody = clone.GetComponent<Rigidbody2D>();
+            bulletRigidbody.AddForce(clone.transform.right * 750);
+        }
+        if (Input.GetKey("w"))
+        {
+            PlayerRigidBody.AddForce(new Vector3(0, 0, forceSpeed));
             transform.localEulerAngles = new Vector3(actualRotation.x, Mathf.Lerp(actualRotation.y, 180, rotationSpeed), actualRotation.z);
-		}
-		if(Input.GetKey("d")){
-			PlayerRigidBody.AddForce(new Vector3 (forceSpeed,0,0));
-            if (90>transform.localEulerAngles.y) {
-                transform.localEulerAngles = new Vector3(actualRotation.x,Mathf.Lerp(actualRotation.y, -90, rotationSpeed), actualRotation.z);
+        }
+        if (Input.GetKey("d"))
+        {
+            PlayerRigidBody.AddForce(new Vector3(forceSpeed, 0, 0));
+            if (90 > transform.localEulerAngles.y)
+            {
+                transform.localEulerAngles = new Vector3(actualRotation.x, Mathf.Lerp(actualRotation.y, -90, rotationSpeed), actualRotation.z);
             }
-            else {
+            else
+            {
                 transform.localEulerAngles = new Vector3(actualRotation.x, Mathf.Lerp(actualRotation.y, 270, rotationSpeed), actualRotation.z);
             }
-            
+
         }
-		if(Input.GetKey("s")){
-			PlayerRigidBody.AddForce(new Vector3 (0,0,-forceSpeed));
-            if ( transform.localEulerAngles.y > 180) {
+        if (Input.GetKey("s"))
+        {
+            PlayerRigidBody.AddForce(new Vector3(0, 0, -forceSpeed));
+            if (transform.localEulerAngles.y > 180)
+            {
                 transform.localEulerAngles = new Vector3(actualRotation.x, Mathf.Lerp(actualRotation.y, 360, rotationSpeed), actualRotation.z);
             }
-            else {
+            else
+            {
                 transform.localEulerAngles = new Vector3(actualRotation.x, Mathf.Lerp(actualRotation.y, 0, rotationSpeed), actualRotation.z);
             }
         }
-		if(Input.GetKey("a")){
+        if (Input.GetKey("a"))
+        {
             PlayerRigidBody.AddForce(new Vector3(-forceSpeed, 0, 0));
             if (transform.localEulerAngles.y > 270)
             {
@@ -69,5 +82,5 @@ public class PlayerController : MonoBehaviour {
                 transform.localEulerAngles = new Vector3(actualRotation.x, Mathf.Lerp(actualRotation.y, 90, rotationSpeed), actualRotation.z);
             }
         }
-	}
+    }
 }
