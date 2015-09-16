@@ -2,18 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent (typeof (ShipCombatInfo))]
 public class RotatorEnemyBehaviour : MonoBehaviour {
 
     // Public objects
-    public float RotationVelocity = 15.0f;
-    public float ShootingSpeed = 1.0f; // Tiempo entre disparos
-    public GameObject Bullet;
+    public float rotationVelocity = 15.0f;
+    public GameObject bulletPrefab;
 
     // Private objects
     GameObject shoot01, shoot02, shoot03, shoot04;
     WaitForSeconds waitBetweenShoots; // Tiempo entre disparos (objeto)
-    int pooledBulletsAmount = 10; // Tamaño de la pool de bullets
-    List<GameObject> bulletsPool;
+    ObjectsPool bulletsPool;
+    ShipCombatInfo shipInfo;
 
 
     // Obtain reference to children object and componentes
@@ -26,40 +26,41 @@ public class RotatorEnemyBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        // Inicializar pool de bullets
-        /*bulletsPool = new List<GameObject>();
-        for (int i = 0; i < pooledBulletsAmount; i++) {
-            GameObject b = (GameObject)Instantiate(Bullet);
-            bulletsPool.Add(b);
-        }*/
-
-
-        waitBetweenShoots = new WaitForSeconds(ShootingSpeed);
-        StartCoroutine(ShootCountdown());
+        shipInfo = GetComponent<ShipCombatInfo>();
+        bulletsPool = new ObjectsPool(bulletPrefab, transform, true);
+        waitBetweenShoots = new WaitForSeconds(shipInfo.TimeBetweenShoots);
+        StartCoroutine(ShootCountdown()); // iniciar coroutina de disparo
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(Vector3.up, RotationVelocity * Time.deltaTime); // rotar alrededor del eje UP del modelo
+        transform.Rotate(Vector3.up, rotationVelocity * Time.deltaTime); // rotar alrededor del eje UP del modelo
 	}
 
-    void OnTriggerEnter(Collider other) {
+    void OnCollisionEnter(Collision other) {
         // Si lo que ha chocado a sido el jugador debemos hacer que rebote (SIN TESTEAR)
-        if (other.tag == "Player") { 
+        /*if (other.tag == "Player") { 
             Vector3 direction = other.transform.position - transform.position;
             other.GetComponent<Rigidbody>().velocity += direction.normalized * 5;
-        }
+        }*/
     }
 
-    // Shoot
+    // Coroutina que controlar el tiempo entre disparos
     IEnumerator ShootCountdown() {
         while (true) {
-            Shoot();
+            ShootFromShooter(shoot01);
+            ShootFromShooter(shoot02);
+            ShootFromShooter(shoot03);
+            ShootFromShooter(shoot04);
             yield return waitBetweenShoots;
         }
     }
 
-    void Shoot() {
-
+    void ShootFromShooter(GameObject shooter) {
+        GameObject b = bulletsPool.GetPooledObject();
+        if (b == null) return;
+        b.SetActive(true);
+        b.transform.position = shooter.transform.position;
+        b.GetComponent<Rigidbody>().AddForce(shooter.transform.forward * shipInfo.ShootForce);
     }
 }
