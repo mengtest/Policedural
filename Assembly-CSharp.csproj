@@ -52,14 +52,20 @@
      <Compile Include="Assets\Scripts\EnemyBehaviour03.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviour04.cs" />
      <Compile Include="Assets\Scripts\Help\DivideScreen.cs" />
-     <Compile Include="Assets\Scripts\LimitController.cs" />
+     <Compile Include="Assets\Scripts\Help\ObjectsPool.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />
      <Compile Include="Assets\Scripts\MenuUI.cs" />
      <Compile Include="Assets\Scripts\MeshGenerator.cs" />
      <Compile Include="Assets\Scripts\ParticleBullet.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerControllerAndroid.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\SplashScreenLoader.cs" />
+=======
+     <Compile Include="Assets\Scripts\RotatorEnemyBehaviour.cs" />
+     <Compile Include="Assets\Scripts\ShipCombatInfo.cs" />
+     <Compile Include="Assets\Scripts\WallsController.cs" />
+>>>>>>> origin/master
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
