@@ -3,17 +3,19 @@ using System.Collections;
 
 public class BulletLife : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		Invoke ("Autodestroy",5f);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public float lifeTime = 2.0f;
+    public WaitForSeconds waitLifeTime;
 
-	void Autodestroy(){
-		Destroy (this.gameObject);
-	}
+	void OnEnable () {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        waitLifeTime = new WaitForSeconds(lifeTime);
+        StartCoroutine(Autodestroy()); // iniciar coroutina de muerte
+    }
+
+    IEnumerator Autodestroy(){
+        yield return waitLifeTime;
+        Debug.Log("Desactivar!");
+        gameObject.SetActive(false);
+    }
 }

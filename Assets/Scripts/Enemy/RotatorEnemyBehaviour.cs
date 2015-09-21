@@ -35,6 +35,7 @@ public class RotatorEnemyBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Rotate(Vector3.up, rotationVelocity * Time.deltaTime); // rotar alrededor del eje UP del modelo
+        
 	}
 
     void OnCollisionEnter(Collision other) {
