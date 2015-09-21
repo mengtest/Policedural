@@ -63,9 +63,19 @@
      <Compile Include="Assets\Scripts\ParticleBullet.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerControllerAndroid.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\ShipCombatInfo.cs" />
      <Compile Include="Assets\Scripts\WallsController.cs" />
      <Compile Include="Assets\VirusEnemyBehaviour.cs" />
+=======
+<<<<<<< HEAD
+     <Compile Include="Assets\Scripts\SplashScreenLoader.cs" />
+=======
+     <Compile Include="Assets\Scripts\RotatorEnemyBehaviour.cs" />
+     <Compile Include="Assets\Scripts\ShipCombatInfo.cs" />
+     <Compile Include="Assets\Scripts\WallsController.cs" />
+>>>>>>> origin/master
+>>>>>>> origin/master
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
